@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+  <!-- <script src="script.js" defer></script> -->
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form id="registrationForm" onsubmit="return validateForm()">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  <span id="nameError" class="error"></span>
+
+  <br>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <span id="passwordError" class="error"></span>
+
+  <br>
+
+  <label for="date">Date of Birth:</label>
+  <input type="date" id="date" name="date" required>
+  <span id="dateError" class="error"></span>
+
+  <br>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+  <span id="emailError" class="error"></span>
+
+  <br>
+
+  <input type="submit" value="Register">
+</form>
+
+<script>
+  function validateForm() {
+    // Reset error messages
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+    document.getElementById("dateError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+
+    // Name validation (only letters and spaces)
+    var nameRegex = /^[a-zA-Z\s]+$/;
+    var nameInput = document.getElementById("name").value;
+    if (!nameRegex.test(nameInput)) {
+      document.getElementById("nameError").innerHTML = "Invalid name format";
+      return false;
+    }
+
+    // Password validation (at least 6 characters)
+    var passwordInput = document.getElementById("password").value;
+    if (passwordInput.length < 6) {
+      document.getElementById("passwordError").innerHTML = "Password must be at least 6 characters";
+      return false;
+    }
+
+    // Date validation (not in the future)
+    var dateInput = document.getElementById("date").value;
+    var currentDate = new Date().toISOString().split("T")[0];
+    if (dateInput > currentDate) {
+      document.getElementById("dateError").innerHTML = "Invalid date";
+      return false;
+    }
+
+    // Email validation
+    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    var emailInput = document.getElementById("email").value;
+    if (!emailRegex.test(emailInput)) {
+      document.getElementById("emailError").innerHTML = "Invalid email format";
+      return false;
+    }
+
+    // Form is valid
+    return true;
+  }
+</script>
+
+</body>
+</html>
